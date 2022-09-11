@@ -1,51 +1,5 @@
 version: 0.2
-
-env:
-  shell: bash
-
 phases:
-  install:
-    on-failure: ABORT
-    runtime-versions:
-      python: 3.8
-    
-  pre_build:
-    commands:
-      - echo "installing aws cli version 2 or latest"
-      - sudo mkdir /usr/local/awscliv2
-      - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-      - unzip -q awscliv2.zip
-      - >
-        sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/awscliv2 --update
-      - export PATH="/usr/local/bin:$PATH"
-
   build:
-    commands: 
-      - |
-        echo "check that the aws cli is installed"
-        aws --version
-        # CA_ARN contains the cross account role arn, and CA_ROLE_NAME contains the cross-account role name
-        CA_ROLE=$(aws sts assume-role --role-arn ${CA_ARN} --role-session-name ${CA_ROLE_NAME})
-        echo ${CA_ROLE}
-        export AWS_ACCESS_KEY_ID=$(echo "${CA_ROLE}" | jq -r '.Credentials.AccessKeyId')
-        export AWS_SECRET_ACCESS_KEY=$(echo "${CA_ROLE}" | jq -r '.Credentials.SecretAccessKey')
-        export AWS_SESSION_TOKEN=$(echo "${CA_ROLE}" | jq -r '.Credentials.SessionToken')
-        
-        
-        echo ${AWS_ACCESS_KEY_ID}
-        echo ${AWS_SECRET_ACCESS_KEY}
-        echo ${AWS_SESSION_TOKEN}
-        
-        aws configure set default.region "us-east-1"
-        aws configure set profile.adminca.region eu-west-1
-        aws configure set output "json"
-        aws configure set aws_secret_access_key "$AWS_SECRET_ACCESS_KEY"
-        aws configure set aws_access_key_id "$AWS_ACCESS_KEY_ID"
-        aws configure set aws_session_token "$AWS_SESSION_TOKEN"
-        
-        echo ${AWS_PROFILE}
-        cat ~/.aws/credentials
-        aws configure list-profiles
-        
-        echo "testing s3 works on this account ${AWS_ACCOUNT}-${AWS_REGION}"
-        aws s3 ls --profile default
+    commands:
+      - echo "Hello World"
