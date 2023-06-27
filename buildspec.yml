@@ -5,4 +5,4 @@ phases:
       - echo "Hello World Test"
       - df -h
       - du -s
-      - du -s -BG /codebuild/output/src462247957/src/github.com/kpamaz/codebuild-test
+      - du -s -BG $CODEBUILD_SRC_DIR
