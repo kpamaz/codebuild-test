@@ -4,3 +4,4 @@ phases:
     commands:
       - echo "Hello World Test"
       - df -h
+      - du -s
