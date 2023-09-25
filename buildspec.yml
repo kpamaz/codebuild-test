@@ -2,4 +2,10 @@ version: 0.2
 phases:
   build:
     commands:
-      - echo "Hello World"
+      - echo "Hello World Test"
+      - df -h
+      - du -s
+      - du -s -BG $CODEBUILD_SRC_DIR
+      - du -sh * | sort -h
+      - df -ha
+
