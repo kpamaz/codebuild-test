@@ -8,4 +8,4 @@ phases:
       - du -s -BG $CODEBUILD_SRC_DIR
       - du -sh * | sort -h
       - df -ha
-      - echo "la le le li lou"
+
